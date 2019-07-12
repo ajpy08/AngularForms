@@ -1,0 +1,53 @@
+<mat-card class="contact-card">
+    <mat-card-header>
+        <mat-card-title>Reactive Form</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field>
+                <input matInput placeholder="firstname" formControlName="firstname" class="form-control"
+                    name="firstname">
+            </mat-form-field>
+            <mat-error *ngIf="form.get('firstname')?.touched && form.get('firstname')?.invalid">
+                <sup>*</sup><label> Por favor ingrese firstname </label>
+            </mat-error>
+            <mat-error *ngIf="form.get('firstname').errors?.minlength">
+                <sup>*</sup> <label>El firstname debe contener al menos 5 caracteres </label><br>
+            </mat-error>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="lastname" formControlName="lastname" class="form-control" name="lastname">
+            </mat-form-field>
+            <mat-error *ngIf="form.get('lastname')?.touched && form.get('lastname')?.invalid">
+                <sup>*</sup><label> Por favor ingrese lastname </label>
+            </mat-error>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="email" formControlName="email" class="form-control" name="email">
+            </mat-form-field>
+            <mat-error
+                *ngIf="form.get('email')?.touched && form.get('email')?.invalid && form.get('email').errors?.pattern">
+                <sup>*</sup><label> Por favor ingrese un email valido </label>
+            </mat-error>
+            <br>
+            <mat-form-field>
+                <textarea rows="4" cols="50" matInput placeholder="message" formControlName="message"
+                    class="form-control" name="message"></textarea>
+            </mat-form-field>
+            <mat-error *ngIf="form.get('message')?.touched && form.get('message')?.invalid">
+                <sup>*</sup><label> Por favor ingrese el message </label>
+            </mat-error>
+            <br>
+            <button id="btnSubmit" mat-raised-button type="submit" color="primary"
+                [disabled]="form.invalid">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+<br><br>
+<strong>{{form.value.firstname}} </strong>
+<br>
+<strong>{{form.value.lastname}} </strong>
+<br>
+<strong>{{form.value.email}} </strong>
+<br>
+<strong>{{form.value.message}} </strong>
